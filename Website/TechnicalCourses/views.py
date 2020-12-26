@@ -1,8 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import loader
+from .models import Allcourses
+
 
 def Courses(request):
-    return HttpResponse('<h1> This is my Home Page</h1>')
+    ac= Allcourses.objects.all()
+    template=loader.get_template("/TechnicalCourses/Courses.html")
+    context={
+         'ac':ac,
+    }
+
+    return HttpResponse(template.render(context,request))
 
 # Create your views here.
 def detail(request, course_id):
